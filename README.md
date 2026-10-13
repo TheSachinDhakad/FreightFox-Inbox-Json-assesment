@@ -46,7 +46,14 @@ mvn clean test
 mvn spring-boot:run
 ```
 
-The server runs at `http://localhost:8080`.
+The server runs at `http://localhost:9090`.
+
+## Swagger UI
+
+The project includes Springdoc OpenAPI and Swagger UI. Once the application is running, open:
+
+- Swagger UI: `http://localhost:9090/swagger-ui/index.html`
+- OpenAPI JSON: `http://localhost:9090/v3/api-docs`
 
 ## API endpoints
 
