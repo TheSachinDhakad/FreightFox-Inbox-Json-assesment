@@ -1,0 +1,177 @@
+{
+  "info": {
+    "_postman_id": "97f789fe-947f-4a3a-b4b8-2ec42093fcf1",
+    "name": "json project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47541921"
+  },
+  "item": [
+    {
+      "name": "insert",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Rohit Kumar\",\n  \"age\": 33,\n  \"department\": \"Support\",\n  \"salary\": 58000,\n  \"city\": \"Noida\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://54.234.156.81:8080/api/dataset/employees/record",
+          "protocol": "http",
+          "host": [
+            "54",
+            "234",
+            "156",
+            "81"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "dataset",
+            "employees",
+            "record"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Group by department",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://54.234.156.81:8080/api/dataset/employees/query?groupBy=department",
+          "protocol": "http",
+          "host": [
+            "54",
+            "234",
+            "156",
+            "81"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "dataset",
+            "employees",
+            "query"
+          ],
+          "query": [
+            {
+              "key": "groupBy",
+              "value": "department"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sort by age ascending",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://54.234.156.81:8080/api/dataset/employees/query?sortBy=salary&order=asc",
+          "protocol": "http",
+          "host": [
+            "54",
+            "234",
+            "156",
+            "81"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "dataset",
+            "employees",
+            "query"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "salary"
+            },
+            {
+              "key": "order",
+              "value": "asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sort by age descending",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://54.234.156.81:8080/api/dataset/employees/query?sortBy=salary&order=desc",
+          "protocol": "http",
+          "host": [
+            "54",
+            "234",
+            "156",
+            "81"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "dataset",
+            "employees",
+            "query"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "salary"
+            },
+            {
+              "key": "order",
+              "value": "desc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid sort order",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9090/api/dataset/employee_dataset/query?groupBy=department&sortBy=age",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9090",
+          "path": [
+            "api",
+            "dataset",
+            "employee_dataset",
+            "query"
+          ],
+          "query": [
+            {
+              "key": "groupBy",
+              "value": "department"
+            },
+            {
+              "key": "sortBy",
+              "value": "age"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
