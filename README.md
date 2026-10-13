@@ -48,6 +48,18 @@ mvn spring-boot:run
 
 The server runs at `http://localhost:9090`.
 
+## Deploy on Render
+
+1. Push the repository to GitHub and create a **Web Service** on Render from that repository.
+2. Choose **Docker** as the runtime. Render will build from the `Dockerfile` in the repository root.
+3. Add these environment variables in the Render service settings:
+   - `DB_URL`: the full MySQL JDBC URL, for example `jdbc:mysql://HOST:PORT/defaultdb?sslMode=REQUIRED`
+   - `DB_USERNAME`: your database username
+   - `DB_PASSWORD`: your database password
+4. Deploy. The app reads Render's `PORT` variable automatically and defaults to port `9090` locally.
+
+After deployment, Swagger UI is available at `/swagger-ui/index.html` and the OpenAPI document at `/v3/api-docs` on your Render service URL.
+
 ## Swagger UI
 
 The project includes Springdoc OpenAPI and Swagger UI. Once the application is running, open:
