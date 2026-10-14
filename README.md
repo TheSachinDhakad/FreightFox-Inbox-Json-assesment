@@ -45,7 +45,7 @@ mvn clean test
 mvn spring-boot:run
 ```
 
-The server runs at `http://localhost:9090`.
+The server runs at `http://localhost:8080`.
 
 ## Live endpoint
 
