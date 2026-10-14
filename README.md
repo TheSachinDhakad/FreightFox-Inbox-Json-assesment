@@ -54,7 +54,9 @@ The Postman collection in this repository uses the following deployed API base U
 ```text
 http://54.234.156.81:8080
 ```
-
+```bash
+curl 'http://54.234.156.81:8080/api/dataset/employees/query'
+```
 For example, query the `employees` dataset with `groupBy`:
 
 ```bash
