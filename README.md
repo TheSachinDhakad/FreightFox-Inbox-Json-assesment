@@ -7,37 +7,36 @@ A REST API that stores arbitrary JSON object records under a dataset name and su
 - Maven 3.9+
 - MySQL 8+
 
-## 1. Create the database
+## Database configuration
 
-Run in MySQL:
+The default local configuration in `src/main/resources/application.properties` uses:
+
+- JDBC URL: `jdbc:mysql://localhost:3306/json`
+- Database username: `sachin`
+- Database password: supplied through the `DB_PASSWORD` environment variable
+
+Create the database in MySQL if it does not already exist:
 
 ```sql
-CREATE DATABASE json_dataset_db;
+CREATE DATABASE json;
 ```
 
-The application creates/updates the `dataset_records` table through Hibernate. The JSON column requires a MySQL version that supports the `JSON` data type (MySQL 5.7+; MySQL 8 recommended).
+Hibernate creates or updates the `dataset_records` table. MySQL 8 is recommended for its JSON data type support.
 
-## 2. Configure Aiven Cloud MySQL
-
-`application.properties` is preconfigured with your Aiven host, port, database (`defaultdb`), username (`avnadmin`), and required SSL mode. The password is intentionally read from the `DB_PASSWORD` environment variable and is not stored in this repository.
-
-In the terminal, from the project folder, set the password securely:
+Set the password in your shell before starting the app. For example, in zsh/bash:
 
 ```bash
-read -s DB_PASSWORD
-export DB_PASSWORD
+export DB_PASSWORD='your-local-mysql-password'
 ```
 
-Paste your **rotated/new Aiven password** when prompted, then press Enter. The input will be hidden.
-
-Optional overrides:
+To use a different database URL or username, override the defaults:
 
 ```bash
-export DB_URL='jdbc:mysql://YOUR_HOST:YOUR_PORT/defaultdb?sslMode=REQUIRED'
-export DB_USERNAME='avnadmin'
+export DB_URL='jdbc:mysql://localhost:3306/json'
+export DB_USERNAME='sachin'
 ```
 
-Do not commit passwords to Git. Since the database password was shared in chat, rotate it in Aiven before running this project.
+Keep database passwords in environment variables or a local, untracked configuration file; do not commit them to Git.
 
 ## 3. Run
 
@@ -48,17 +47,21 @@ mvn spring-boot:run
 
 The server runs at `http://localhost:9090`.
 
-## Deploy on Render
+## Live endpoint
 
-1. Push the repository to GitHub and create a **Web Service** on Render from that repository.
-2. Choose **Docker** as the runtime. Render will build from the `Dockerfile` in the repository root.
-3. Add these environment variables in the Render service settings:
-   - `DB_URL`: the full MySQL JDBC URL, for example `jdbc:mysql://HOST:PORT/defaultdb?sslMode=REQUIRED`
-   - `DB_USERNAME`: your database username
-   - `DB_PASSWORD`: your database password
-4. Deploy. The app reads Render's `PORT` variable automatically and defaults to port `9090` locally.
+The Postman collection in this repository uses the following deployed API base URL:
 
-After deployment, Swagger UI is available at `/swagger-ui/index.html` and the OpenAPI document at `/v3/api-docs` on your Render service URL.
+```text
+http://54.234.156.81:8080
+```
+
+For example, query the `employees` dataset with `groupBy`:
+
+```bash
+curl 'http://54.234.156.81:8080/api/dataset/employees/query?groupBy=department'
+```
+
+This address reflects the endpoint recorded in the checked-in Postman collection. If the deployment host changes, update it there and here.
 
 ## Swagger UI
 
@@ -89,7 +92,7 @@ Request body:
 Example:
 
 ```bash
-curl -X POST http://localhost:8080/api/dataset/employee_dataset/record \
+curl -X POST http://localhost:9090/api/dataset/employee_dataset/record \
   -H 'Content-Type: application/json' \
   -d '{"id":1,"name":"John Doe","age":30,"department":"Engineering"}'
 ```
